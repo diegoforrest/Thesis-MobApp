@@ -23,26 +23,26 @@ void main() {
   );
 }
 
-  class MyApp extends StatelessWidget {
-    @override
-    Widget build(BuildContext context) {
-      return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Paddy Scan App', // App title
-        theme: ThemeData(
-          primarySwatch: Colors.green, // Primary color theme
-        ),
-        initialRoute: '/', // Initial route
-        routes: {
-          '/': (context) => HomeScreen(),
-          '/scan': (context) => ScanScreen(),
-          '/scan_result': (context) => ScanResultScreen(),
-          '/save_to_records': (context) => SaveToRecordsScreen(),
-          '/records': (context) => RecordsScreen(),
-          '/notification': (context) => NotificationScreen(), // Add this
-          
-          
-        },
-      );
-    }
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Paddy Scan App', // App title
+      theme: ThemeData(
+        primarySwatch: Colors.green, // Primary color theme
+      ),
+      initialRoute: '/', // Initial route
+      routes: {
+        '/': (context) => HomeScreen(),
+        '/scan': (context) => ScanScreen(),
+        '/scan_result': (context) => ScanResultScreen(),
+        '/save_to_records': (context) => SaveToRecordsScreen(),
+        '/records': (context) => RecordsScreen(),
+        '/notification': (context) => NotificationScreen(), // Add this
+      },
+    );
   }
+}

@@ -4,16 +4,22 @@ import 'dart:math';
 import '../appstate.dart'; // Import your AppState
 
 class ScanResultScreen extends StatelessWidget {
-  const ScanResultScreen({Key? key}) : super(key: key);
+  const ScanResultScreen({super.key});
 
-  static const List<String> classifications = ['Healthy', 'Rice Blast', 'Sheath Blight'];
+  static const List<String> classifications = [
+    'Healthy',
+    'Rice Blast',
+    'Sheath Blight'
+  ];
 
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<AppState>(context);
 
-    String randomClassification = classifications[Random().nextInt(classifications.length)];
-    appState.currentImageClassification = randomClassification; // Update AppState
+    String randomClassification =
+        classifications[Random().nextInt(classifications.length)];
+    appState.currentImageClassification =
+        randomClassification; // Update AppState
 
     return Scaffold(
       appBar: AppBar(
@@ -38,7 +44,8 @@ class ScanResultScreen extends StatelessWidget {
               const SizedBox(height: 40),
               Text(
                 randomClassification, // Display randomized classification
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
               ElevatedButton(
@@ -47,7 +54,8 @@ class ScanResultScreen extends StatelessWidget {
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green,
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                   textStyle: const TextStyle(fontSize: 18),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -67,7 +75,8 @@ class ScanResultScreen extends StatelessWidget {
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green,
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                   textStyle: const TextStyle(fontSize: 18),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),

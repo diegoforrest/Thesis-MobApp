@@ -6,53 +6,74 @@ import 'package:path/path.dart' as path;
 import 'package:provider/provider.dart';
 import '../appstate.dart';
 
-
 class ScanScreen extends StatefulWidget {
+  const ScanScreen({super.key});
+
   @override
   _ScanScreenState createState() => _ScanScreenState();
 }
 
 class _ScanScreenState extends State<ScanScreen> {
   File? _image;
-
   final picker = ImagePicker();
-
   String? _imagePath; // Store the image path
 
-  Future getImage() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+  Future<void> getImage() async {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return SafeArea(
+          child: Wrap(
+            children: <Widget>[
+              ListTile(
+                leading: const Icon(Icons.camera),
+                title: const Text("Take a Photo"),
+                onTap: () async {
+                  Navigator.pop(context); // Close dialog
+                  final pickedFile = await picker.pickImage(source: ImageSource.camera);
+                  _handleImageSelection(pickedFile);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.photo_library),
+                title: const Text("Choose from Gallery"),
+                onTap: () async {
+                  Navigator.pop(context); // Close dialog
+                  final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+                  _handleImageSelection(pickedFile);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
-    setState(() {
-      if (pickedFile != null) {
+  void _handleImageSelection(XFile? pickedFile) {
+    if (pickedFile != null) {
+      setState(() {
         _image = File(pickedFile.path);
-
-        _imagePath = pickedFile.path; // Store the path
-
+        _imagePath = pickedFile.path;
         _saveImagePath(_imagePath!);
-      } else {
-        print('No image selected.');
-      }
-    });
+      });
+    } else {
+      print('No image selected.');
+    }
   }
 
   Future<void> _saveImagePath(String imagePath) async {
     final directory = await getApplicationDocumentsDirectory();
-
     final filePath = path.join(directory.path, 'last_image_path.txt');
-
     final file = File(filePath);
-
     await file.writeAsString(imagePath);
   }
 
   Future<String?> _getLastImagePath() async {
     try {
       final directory = await getApplicationDocumentsDirectory();
-
       final filePath = path.join(directory.path, 'last_image_path.txt');
-
       final file = File(filePath);
-
       return await file.readAsString();
     } catch (e) {
       return null; // Handle file not found or other errors
@@ -62,17 +83,14 @@ class _ScanScreenState extends State<ScanScreen> {
   @override
   void initState() {
     super.initState();
-
     _loadLastImagePath();
   }
 
   Future<void> _loadLastImagePath() async {
     final savedPath = await _getLastImagePath();
-
     if (savedPath != null) {
       setState(() {
         _image = File(savedPath);
-
         _imagePath = savedPath;
       });
     }
@@ -81,9 +99,7 @@ class _ScanScreenState extends State<ScanScreen> {
   void _resetImage() {
     setState(() {
       _image = null;
-
       _imagePath = null;
-
       _saveImagePath(''); // Clear the saved path
     });
   }
@@ -104,35 +120,31 @@ class _ScanScreenState extends State<ScanScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               GestureDetector(
-                onTap: _image != null ? _resetImage : getImage, // Toggle action
-
+                onTap: _image != null ? _resetImage : getImage, // Open Camera/Gallery
                 child: _image == null
                     ? Image.asset('assets/images/TapToOpenCam.png', height: 500)
                     : Image.file(_image!, height: 500, fit: BoxFit.fitHeight),
               ),
               const SizedBox(height: 20),
-              const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: _image != null ? () {
+                onPressed: _image != null
+                    ? () {
                   appState.currentImagePath = _imagePath!;
                   Navigator.pushNamed(context, '/scan_result');
-                } : null, // Disable if no image
-
+                }
+                    : null, // Disable if no image
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green,
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                  const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                   textStyle: const TextStyle(fontSize: 20),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-
-                child:
-                    const Text('Scan', style: TextStyle(color: Colors.white)),
+                child: const Text('Scan', style: TextStyle(color: Colors.white)),
               ),
               if (_imagePath != null) // Display the file path
-
                 Padding(
                   padding: const EdgeInsets.only(top: 16.0),
                   child: Text(

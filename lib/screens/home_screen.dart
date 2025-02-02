@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +29,8 @@ class HomeScreen extends StatelessWidget {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
-                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                 textStyle: const TextStyle(fontSize: 20),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -42,13 +45,15 @@ class HomeScreen extends StatelessWidget {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
-                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                 textStyle: const TextStyle(fontSize: 20),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              child: const Text('RECORDS', style: TextStyle(color: Colors.white)),
+              child:
+                  const Text('RECORDS', style: TextStyle(color: Colors.white)),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
@@ -57,13 +62,15 @@ class HomeScreen extends StatelessWidget {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
-                padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 15),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 35, vertical: 15),
                 textStyle: const TextStyle(fontSize: 20),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              child: const Text('NOTIFICATION', style: TextStyle(color: Colors.white)),
+              child: const Text('NOTIFICATION',
+                  style: TextStyle(color: Colors.white)),
             ),
           ],
         ),

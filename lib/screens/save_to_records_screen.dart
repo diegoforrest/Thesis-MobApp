@@ -5,7 +5,7 @@ import '../appstate.dart'; // Import your AppState
 import '../database_helper.dart'; // Import your DatabaseHelper class
 
 class SaveToRecordsScreen extends StatefulWidget {
-  const SaveToRecordsScreen({Key? key}) : super(key: key);
+  const SaveToRecordsScreen({super.key});
 
   @override
   State<SaveToRecordsScreen> createState() => _SaveToRecordsScreenState();
@@ -13,7 +13,8 @@ class SaveToRecordsScreen extends StatefulWidget {
 
 class _SaveToRecordsScreenState extends State<SaveToRecordsScreen> {
   final _noteController = TextEditingController();
-  final _databaseHelper = DatabaseHelper(); // Create an instance of DatabaseHelper
+  final _databaseHelper =
+      DatabaseHelper(); // Create an instance of DatabaseHelper
 
   @override
   void dispose() {
@@ -29,7 +30,8 @@ class _SaveToRecordsScreenState extends State<SaveToRecordsScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: const Text('Save To Records', style: TextStyle(color: Colors.white)),
+        title: const Text('Save To Records',
+            style: TextStyle(color: Colors.white)),
         centerTitle: true,
         elevation: 0,
       ),
@@ -72,19 +74,22 @@ class _SaveToRecordsScreenState extends State<SaveToRecordsScreen> {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,
-                      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 12),
                       textStyle: const TextStyle(fontSize: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    child: const Text('Cancel', style: TextStyle(color: Colors.white)),
+                    child: const Text('Cancel',
+                        style: TextStyle(color: Colors.white)),
                   ),
                   ElevatedButton(
                     onPressed: () async {
                       if (imagePath.isNotEmpty) {
                         final newRecord = Record(
-                          classification: appState.currentImageClassification, // Replace with actual classification logic
+                          classification: appState
+                              .currentImageClassification, // Replace with actual classification logic
                           note: _noteController.text,
                           pathToImage: imagePath,
                           date: DateTime.now(), // Get current date and time
@@ -97,19 +102,22 @@ class _SaveToRecordsScreenState extends State<SaveToRecordsScreen> {
                         Navigator.pushNamed(context, '/');
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Please select an image')),
+                          const SnackBar(
+                              content: Text('Please select an image')),
                         );
                       }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,
-                      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 12),
                       textStyle: const TextStyle(fontSize: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    child: const Text('Save', style: TextStyle(color: Colors.white)),
+                    child: const Text('Save',
+                        style: TextStyle(color: Colors.white)),
                   ),
                 ],
               ),

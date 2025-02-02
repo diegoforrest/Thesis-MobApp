@@ -19,7 +19,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   TimeOfDay? _selectedTime;
 
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+  FlutterLocalNotificationsPlugin();
 
   @override
   void initState() {
@@ -31,9 +31,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
   Future<void> _initializeNotifications() async {
     tz.initializeTimeZones();
     const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('mipmap/ic_launcher');
+    AndroidInitializationSettings('mipmap/ic_launcher');
     const InitializationSettings initializationSettings =
-        InitializationSettings(android: initializationSettingsAndroid);
+    InitializationSettings(android: initializationSettingsAndroid);
     await flutterLocalNotificationsPlugin.initialize(initializationSettings);
     await _createNotificationChannel();
   }
@@ -71,7 +71,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
+        AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(channel);
   }
 
@@ -109,7 +109,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
+      UILocalNotificationDateInterpretation.absoluteTime,
     );
 
     ScaffoldMessenger.of(context).showSnackBar(

@@ -4,18 +4,18 @@ import '../database_helper.dart';
 import 'dart:io';
 
 class RecordsScreen extends StatefulWidget {
-  const RecordsScreen({Key? key}) : super(key: key);
+  const RecordsScreen({super.key});
 
   @override
   State<RecordsScreen> createState() => _RecordsScreenState();
 }
 
-enum FilterOption { classification, mostRecent, leastRecent }
+enum FilterOption { Classification, Most_Recent, Least_Recent }
 
 class _RecordsScreenState extends State<RecordsScreen> {
   late Future<List<Record>> _recordsFuture;
   final DatabaseHelper _databaseHelper = DatabaseHelper();
-  FilterOption _selectedFilter = FilterOption.mostRecent;
+  FilterOption _selectedFilter = FilterOption.Most_Recent;
 
   @override
   void initState() {
@@ -30,13 +30,13 @@ class _RecordsScreenState extends State<RecordsScreen> {
 
   List<Record> _filterRecords(List<Record> records) {
     switch (_selectedFilter) {
-      case FilterOption.classification:
+      case FilterOption.Classification:
         records.sort((a, b) => a.classification.compareTo(b.classification));
         break;
-      case FilterOption.mostRecent:
+      case FilterOption.Most_Recent:
         records.sort((a, b) => b.date.compareTo(a.date));
         break;
-      case FilterOption.leastRecent:
+      case FilterOption.Least_Recent:
         records.sort((a, b) => a.date.compareTo(b.date));
         break;
     }
@@ -81,7 +81,7 @@ class _RecordsScreenState extends State<RecordsScreen> {
               items: FilterOption.values.map((filter) {
                 return DropdownMenuItem<FilterOption>(
                   value: filter,
-                  child: Text(filter.toString().split('.').last),
+                  child: Text(filter.toString().split('.').last.replaceAll('_', ' ')),
                 );
               }).toList(),
             ),
@@ -114,23 +114,29 @@ class _RecordsScreenState extends State<RecordsScreen> {
                                     width: 100,
                                     height: 100,
                                     color: Colors.grey[300],
-                                    child: const Center(child: Text('No Image')),
+                                    child:
+                                    const Center(child: Text('No Image')),
                                   ),
                                 const SizedBox(width: 16),
                                 Expanded(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Text('Record - ${record.id}'),
-                                      Text('Classification: ${record.classification}'),
-                                      Text('Date: ${DateFormat('yyyy-MM-dd HH:mm').format(record.date)}'),
+                                      Text(
+                                          'Classification: ${record.classification}'),
+                                      Text(
+                                          'Date: ${DateFormat('MMMM d yyyy, h:mm a').format(record.date)}'),
                                       Text('Note: ${record.note}'),
                                     ],
                                   ),
                                 ),
-                                IconButton( // Delete button for each record
+                                IconButton(
+                                  // Delete button for each record
                                   onPressed: () => _deleteRecord(record.id!),
-                                  icon: const Icon(Icons.delete, color: Colors.red),
+                                  icon: const Icon(Icons.delete,
+                                      color: Colors.red),
                                 ),
                               ],
                             ),
